@@ -1,0 +1,18 @@
+{% extends "application.html" %}
+
+{% block html_attribs %} lang pt_BR="BR"{% endblock %}
+
+{% block title %}MenuHub | Plates{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>MenuHub | Search</h1>
+    <div>
+        <form method="POST" action="/search">
+            <label>Plate name: </label>
+            <input type="text" name="email">
+            <button type="submit" class="btn btn-primary mt-3">Search</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

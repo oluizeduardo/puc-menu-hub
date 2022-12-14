@@ -1,0 +1,20 @@
+{% extends "application.html" %}
+
+{% block html_attribs %} lang pt_BR="BR"{% endblock %}
+
+{% block title %}MenuHub | Plates{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>MenuHub | Login</h1>
+    <div class="card" style="width: 18rem;">
+        <form method="POST" action="/login">
+            <label>Email: </label>
+            <input type="text" name="email">
+            <label>Password: </label>
+            <input type="text" name="password">
+            <button type="submit" class="btn btn-primary mt-3">Login</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
