@@ -2,22 +2,24 @@
 
 {% block html_attribs %} lang pt_BR="BR"{% endblock %}
 
-{% block title %}MenuHub | Plates{% endblock %}
+{% block title %}MenuHub | Add User{% endblock %}
 
 {% block content %}
 <div class="container">
-    <h1>MenuHub | Login</h1>
+    <h1>MenuHub | Add User</h1>
     <div class="card" style="width: 18rem;">
-        <form method="POST" action="/login">
+        <form method="POST" action="/user/add">
+            <label>Name: </label>
+            <input type="text" name="name">
+
             <label>Email: </label>
             <input type="text" name="email">
+
             <label>Password: </label>
             <input type="text" name="password">
-            <button type="submit" class="btn btn-primary">Login</button>
+
+            <button type="submit" class="btn btn-primary">Add user</button>
         </form>
-    </div>
-    <div>
-        <a href="/user/add">Add new user</a>
     </div>
 </div>
 {% endblock %}
