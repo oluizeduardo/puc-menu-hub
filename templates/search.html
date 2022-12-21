@@ -6,13 +6,48 @@
 
 {% block content %}
 <div class="container">
-    <h1>MenuHub | Search</h1>
-    <div>
+    <h1>Search</h1>
+    <div class="card shadow p-3 mb-5 bg-body rounded">
         <form method="POST" action="/search">
-            <label>Plate name: </label>
-            <input type="text" name="email">
-            <button type="submit" class="btn btn-primary mt-3">Search</button>
-        </form>
+            <div class="row mb-2">
+                <div class="col">
+                    <div>
+                        <label for="fieldPlateName" class="form-label">Plate name</label>
+                        <input type="text" class="form-control" id="fieldPlateName" name="platename" required>
+                    </div>
+                </div>
+                <div class="col" style="padding-top: 8px;">
+                    <button type="submit" class="btn btn-primary mt-4">Search</button>
+                </div>
+            </div>
+        </form>        
     </div>
+    
+    <form method="POST" action="/plates" class="m-3">            
+        <div class="mb-2">
+            <label for="fieldName" class="form-label">Plate Name</label>
+            <input type="text" class="form-control" id="fieldName" name="name" required>
+        </div>
+    
+        <div class="mb-2">
+            <label for="fieldCategory" class="form-label">Category</label>
+            <input type="text" class="form-control" id="fieldCategory" name="category" required>
+        </div>
+    
+        <div class="mb-2">
+            <label for="fieldPrice" class="form-label">Price</label>
+            <input type="text" class="form-control" id="fieldPrice" name="price" required>
+        </div>
+    
+        <div class="d-flex d-grid gap-3">                
+            <div class="mt-2">
+                <button id="btnRegister" type="submit" class="btn btn-primary">Save edition</button>
+            </div>            
+            <div class="mt-2">
+                <button id="btnDelete" type="submit" class="btn btn-danger">Delete plate</button>
+            </div>                
+        </div>
+    </form>
+    
 </div>
 {% endblock %}

@@ -6,18 +6,20 @@
 
 {% block content %}
 <div class="container">
-    <h1>MenuHub | Login</h1>
-    <div class="card" style="width: 18rem;">
+    <h1>Login</h1>
+    <div class="card shadow p-3 mb-5 bg-body rounded">
         <form method="POST" action="/login">
-            <label>Email: </label>
-            <input type="text" name="email">
-            <label>Password: </label>
-            <input type="text" name="password">
-            <button type="submit" class="btn btn-primary">Login</button>
+            <div class="mb-3">
+                <label for="fieldEmail" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="fieldEmail" name="email" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="fieldPassword" class="form-label">Password</label>
+                <input type="password" class="form-control" id="fieldPassword" name="password" required>
+            </div>
+            <button type="submit" class="btn btn-primary mb-3">Login</button>
         </form>
-    </div>
-    <div>
-        <a href="/user/add">Add new user</a>
     </div>
 </div>
 {% endblock %}
