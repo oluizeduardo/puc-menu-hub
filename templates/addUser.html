@@ -6,25 +6,44 @@
 
 {% block content %}
 <div class="container">
-    <h1>Add User</h1>
+    <h1 class="mb-3">Add User</h1>
     <div class="card shadow p-3 mb-5 bg-body rounded">
-        <form method="POST" action="/adduser">
+        <form method="POST" onsubmit="return checkPassword(this)" action="/adduser">
             <div class="mb-3">
                 <label for="fieldName" class="form-label">Name</label>
-                <input type="text" class="form-control" id="fieldName" name="name" required>
+                <input id="fieldName" type="text" class="form-control" name="name" required>
             </div>
 
             <div class="mb-3">
                 <label for="fieldEmail" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="fieldEmail" name="email" required>
+                <input id="fieldEmail" type="email" class="form-control" name="email" required>
             </div>
 
             <div class="mb-3">
                 <label for="fieldPassword" class="form-label">Password</label>
-                <input type="password" class="form-control" id="fieldPassword" name="password" required>
+                <input id="fieldPassword" type="password" class="form-control" name="password" required>
             </div>
+
+            <div class="mb-3">
+                <label for="fieldConfirmPassword" class="form-label">Confirm Password</label>
+                <input id="fieldConfirmPassword" type="password" class="form-control" name="confirmPassword" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="fieldRestaurant" class="form-label">Restaurant</label>
+                <select id="fieldRestaurant" class="form-select" required>
+                    <option value="select" selected>Select...</option>
+                    {% for restaurant in list_of_restaurants %}
+                        <option value="{{ restaurant.id }}">{{ restaurant.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
             <button type="submit" class="btn btn-primary mb-3">Register</button>
         </form>
     </div>
 </div>
+{% block scripts %}
+    <script src="{{url_for('static', filename='js/validateConfirmPassword.js')}}"></script>
+{% endblock %}
 {% endblock %}
