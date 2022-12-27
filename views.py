@@ -1,7 +1,7 @@
 import constants
 from flask import render_template, request, redirect
 from models import User, Plate, Restaurant
-from app import app, db
+from app import app, db, session
 
 ###################
 # ROUTE LOGIN
@@ -26,14 +26,11 @@ def login():
         # Find user by email.
         user = User.query.filter_by(email=email).first()
 
-        if user == None:
-            error = constants.MESSAGE_ERROR_INVALID_CREDENTIALS
-            # Render the login page if any user was found.
-            return render_template(constants.ID_LOGIN_PAGE, list_of_restaurants=restaurants, error=error)
-        
-        else:
+        if user:
             # Check the password and the restaurant associaded to this user.
             if user.check_password(password) and user.check_restaurant_id(restaurant_id):
+
+                session['logged_email'] = user.email
 
                 # List the plates registered in the database.
                 plates = Plate.query.order_by(Plate.name).all()
@@ -42,11 +39,22 @@ def login():
             else:
                 error = constants.MESSAGE_ERROR_INVALID_CREDENTIALS
                 # Render the login page if the password doesn't match.
-                return render_template(constants.ID_LOGIN_PAGE, list_of_restaurants=restaurants, error=error)
+                return render_template(constants.ID_LOGIN_PAGE, list_of_restaurants=restaurants, message=error)
+        else:
+            error = constants.MESSAGE_ERROR_INVALID_CREDENTIALS
+            # Render the login page if any user was found.
+            return render_template(constants.ID_LOGIN_PAGE, list_of_restaurants=restaurants, message=error)            
             
     else:
         # Render the login page if the HTTP method is not POST.
-        return render_template(constants.ID_LOGIN_PAGE, list_of_restaurants=restaurants, error=error)
+        return render_template(constants.ID_LOGIN_PAGE, list_of_restaurants=restaurants, message=error)
+
+
+@app.route("/logout", methods=["POST", "GET"])
+def logout():
+    # Clean session.
+    session['logged_email'] = None
+    return redirect_to_login(constants.MESSAGE_LOG_OUT)          
 
 
 ###################
@@ -54,6 +62,10 @@ def login():
 ###################
 @app.route("/plates", methods=["POST", "GET"])
 def home():
+    
+    if is_empty_session():
+        return redirect_to_login(constants.MESSAGE_PLEASE_LOG_IN)
+
     if request.method == 'POST':
 
         plate = Plate(name=request.form['name'],
@@ -77,7 +89,10 @@ def home():
 ###################
 @app.route("/search", methods=["POST", "GET"])
 def search():
-    return render_template(constants.ID_SEARCH_PAGE)
+    if is_empty_session():
+        return redirect_to_login(constants.MESSAGE_PLEASE_LOG_IN)
+    else:
+        return render_template(constants.ID_SEARCH_PAGE)
 
 
 ###################
@@ -126,3 +141,11 @@ def add_restaurant():
         # List all the restaurants in the database.
         restaurants = Restaurant.query.order_by(Restaurant.id).all()
         return render_template(constants.ID_ADD_RESTAURANT_PAGE, restaurants=restaurants)
+
+def is_empty_session():
+    return not session.get('logged_email')
+
+def redirect_to_login(message):
+    # List of all restaurants.
+    restaurants = Restaurant.query.all()
+    return render_template(constants.ID_LOGIN_PAGE, list_of_restaurants=restaurants, message=message)  

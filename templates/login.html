@@ -7,9 +7,9 @@
 {% block content %}
 <div class="container">
     <h1 class="mb-3">Login</h1>
-    {% if error %}
+    {% if message %}
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            {{ error }}
+            {{ message }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>            
     {% endif %}

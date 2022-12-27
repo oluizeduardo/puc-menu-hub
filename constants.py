@@ -14,3 +14,6 @@ MESSAGE_ERROR_SAVING_USER = 'There was an error trying to save a new user.'
 MESSAGE_ERROR_SAVING_PLATE = 'There was an error trying to save the plate.'
 MESSAGE_ERROR_SAVING_RESTAURANT = 'There was an error trying to save a new restaurant.'
 MESSAGE_ERROR_INVALID_CREDENTIALS = 'Invalid credentials.'
+
+MESSAGE_LOG_OUT = 'You\'ve been logged out.'
+MESSAGE_PLEASE_LOG_IN = 'Please, log in.'
