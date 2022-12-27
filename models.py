@@ -12,8 +12,8 @@ class Restaurant(db.Model):
 
     id     = db.Column(db.Integer, primary_key = True)
     name   = db.Column(db.String(100), nullable = False)
-    plates = db.relationship('Plate', backref='restaurants')
-    users  = db.relationship('User',  backref='restaurants')
+    plates = db.relationship('Plate', backref='restaurants', lazy="joined")
+    users  = db.relationship('User',  backref='restaurants', lazy="joined")
     created_on = db.Column(db.DateTime(), default=datetime.utcnow)
 
     def __repr__(self):
@@ -45,7 +45,7 @@ class User(db.Model):
     name       = db.Column(db.String(100), nullable = False)
     email      = db.Column(db.String(200), nullable = False)
     password_hash = db.Column(db.String(128), nullable = False)
-    restaurant_id = db.Column(db.Integer, db.ForeignKey("restaurants.id"))  
+    restaurant_id = db.Column(db.Integer, db.ForeignKey("restaurants.id"), nullable = False)  
     created_on = db.Column(db.DateTime(), default=datetime.utcnow)
 
     def check_email(self, email):
@@ -58,7 +58,7 @@ class User(db.Model):
         return check_password_hash(self.password_hash, password)
     
     def check_restaurant_id(self, restaurant_id):
-        return restaurant_id == self.restaurant_id
+        return int(restaurant_id) == self.restaurant_id
 
     def __repr__(self):
         return f'User [#{self.id}, name: {self.name}, restaurant_id: {self.restaurant_id}, email: {self.email}, created_on: {self.created_on}]'

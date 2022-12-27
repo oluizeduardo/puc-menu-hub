@@ -31,7 +31,7 @@
 
             <div class="mb-3">
                 <label for="fieldRestaurant" class="form-label">Restaurant</label>
-                <select id="fieldRestaurant" class="form-select" name="fieldRestaurant" required>
+                <select id="fieldRestaurant" class="form-select" name="restaurant" required>
                     <option value="0" selected>Select...</option>
                     {% for restaurant in list_of_restaurants %}
                         <option value="{{ restaurant.id }}">{{ restaurant.id }} - {{ restaurant.name }}</option>

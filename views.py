@@ -21,6 +21,7 @@ def login():
         # Get parameters from the request.
         email = request.form['email']
         password = request.form['password']
+        restaurant_id = request.form['restaurant_id']
 
         # Find user by email.
         user = User.query.filter_by(email=email).first()
@@ -31,8 +32,8 @@ def login():
             return render_template(constants.ID_LOGIN_PAGE, list_of_restaurants=restaurants, error=error)
         
         else:
-            # Check the password with the found user's credentials.
-            if user.check_password(password):
+            # Check the password and the restaurant associaded to this user.
+            if user.check_password(password) and user.check_restaurant_id(restaurant_id):
 
                 # List the plates registered in the database.
                 plates = Plate.query.order_by(Plate.name).all()
@@ -88,7 +89,8 @@ def add_user():
     if request.method == 'POST':
 
         user = User(name=request.form['name'],
-                    email=request.form['email'])
+                    email=request.form['email'],
+                    restaurant_id=request.form['restaurant'])
         user.set_password(request.form['password'])
 
         try:
