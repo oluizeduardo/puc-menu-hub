@@ -42,3 +42,4 @@ migrations/
 alembic/
 *.ini
 requirements.txt
+/flask_session
