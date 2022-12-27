@@ -1,5 +1,5 @@
 import constants
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect
 from models import User, Plate, Restaurant
 from app import app, db
 
@@ -12,6 +12,9 @@ def login():
     # List of all restaurants.
     restaurants = Restaurant.query.all()
 
+    # The error message.
+    error = None
+
     # Check the HTTP method.
     if request.method == 'POST':
 
@@ -22,19 +25,27 @@ def login():
         # Find user by email.
         user = User.query.filter_by(email=email).first()
 
-        # Check the password with the found user's credentials.
-        if user.check_password(password):
-
-            # List the plates registered in the database.
-            plates = Plate.query.order_by(Plate.name).all()
-            return render_template(constants.ID_PLATES_PAGE, plates=plates)
-
+        if user == None:
+            error = constants.MESSAGE_ERROR_INVALID_CREDENTIALS
+            # Render the login page if any user was found.
+            return render_template(constants.ID_LOGIN_PAGE, list_of_restaurants=restaurants, error=error)
+        
         else:
-            # Render the login page if the password doesn't match.
-            return render_template(constants.ID_LOGIN_PAGE, list_of_restaurants=restaurants)
+            # Check the password with the found user's credentials.
+            if user.check_password(password):
+
+                # List the plates registered in the database.
+                plates = Plate.query.order_by(Plate.name).all()
+                return render_template(constants.ID_PLATES_PAGE, plates=plates)
+
+            else:
+                error = constants.MESSAGE_ERROR_INVALID_CREDENTIALS
+                # Render the login page if the password doesn't match.
+                return render_template(constants.ID_LOGIN_PAGE, list_of_restaurants=restaurants, error=error)
+            
     else:
         # Render the login page if the HTTP method is not POST.
-        return render_template(constants.ID_LOGIN_PAGE, list_of_restaurants=restaurants)
+        return render_template(constants.ID_LOGIN_PAGE, list_of_restaurants=restaurants, error=error)
 
 
 ###################

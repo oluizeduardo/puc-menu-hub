@@ -7,8 +7,14 @@
 {% block content %}
 <div class="container">
     <h1 class="mb-3">Login</h1>
+    {% if error %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ error }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>            
+    {% endif %}
     <div class="card shadow p-3 mb-5 bg-body rounded">
-        <form method="POST" action="/login">
+        <form method="POST" onsubmit="return validateForm(this)" action="/login">
             <div class="mb-3">
                 <label for="fieldEmail" class="form-label">Email address</label>
                 <input type="email" class="form-control" id="fieldEmail" name="email" required>
@@ -22,7 +28,7 @@
             <div class="mb-3">
                 <label for="fieldRestaurant" class="form-label">Restaurant</label>
                 <select id="fieldRestaurant" class="form-select" required>
-                    <option value="select" selected>Select...</option>
+                    <option value="0" selected>Select...</option>
                     {% for restaurant in list_of_restaurants %}
                         <option value="{{ restaurant.id }}">{{ restaurant.name }}</option>
                     {% endfor %}
@@ -30,7 +36,11 @@
             </div>
 
             <button type="submit" class="btn btn-primary mb-3">Login</button>
-        </form>
+        </form>        
     </div>
 </div>
+{% block scripts %}
+    <script src="{{url_for('static', filename='js/validateLogin.js')}}"></script>
+    <script src="{{url_for('static', filename='js/bootstrap.bundle.min.js')}}"></script>
+{% endblock %}
 {% endblock %}
