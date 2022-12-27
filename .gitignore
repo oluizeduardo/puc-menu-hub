@@ -39,4 +39,6 @@ venv.bak/
 
 *.sqlite
 migrations/
+alembic/
+*.ini
 requirements.txt
