@@ -44,17 +44,23 @@ def login():
             error = constants.MESSAGE_ERROR_INVALID_CREDENTIALS
             # Render the login page if any user was found.
             return render_template(constants.ID_LOGIN_PAGE, list_of_restaurants=restaurants, message=error)            
-            
     else:
         # Render the login page if the HTTP method is not POST.
         return render_template(constants.ID_LOGIN_PAGE, list_of_restaurants=restaurants, message=error)
 
 
+###################
+# ROUTE LOGOUT
+###################
 @app.route("/logout", methods=["POST", "GET"])
 def logout():
-    # Clean session.
-    session['logged_email'] = None
-    return redirect_to_login(constants.MESSAGE_LOG_OUT)          
+    message = None
+    if not is_empty_session():
+        # Clean session.
+        session['logged_email'] = None
+        message = constants.MESSAGE_LOG_OUT 
+    
+    return redirect_to_login(message)          
 
 
 ###################
@@ -143,7 +149,7 @@ def add_restaurant():
         return render_template(constants.ID_ADD_RESTAURANT_PAGE, restaurants=restaurants)
 
 def is_empty_session():
-    return not session.get('logged_email')
+    return 'logged_email' not in session or session['logged_email'] == None
 
 def redirect_to_login(message):
     # List of all restaurants.
