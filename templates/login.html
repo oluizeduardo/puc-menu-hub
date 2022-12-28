@@ -30,7 +30,7 @@
                 <select id="fieldRestaurant" class="form-select" required name="restaurant_id">
                     <option value="0" selected>Select...</option>
                     {% for restaurant in list_of_restaurants %}
-                        <option value="{{ restaurant.id }}">{{ restaurant.name }}</option>
+                        <option value="{{ restaurant.id }}">{{ restaurant.id }} - {{ restaurant.name }}</option>
                     {% endfor %}
                 </select>
             </div>

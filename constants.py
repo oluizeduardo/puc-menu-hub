@@ -17,3 +17,5 @@ MESSAGE_ERROR_INVALID_CREDENTIALS = 'Invalid credentials.'
 
 MESSAGE_LOG_OUT = 'You\'ve been logged out.'
 MESSAGE_PLEASE_LOG_IN = 'Please, log in.'
+
+SESSION_ID = 'logged_user'
