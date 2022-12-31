@@ -1,0 +1,43 @@
+{% extends "application.html" %}
+
+{% block html_attribs %} lang pt_BR="BR"{% endblock %}
+
+{% block title %}Add Restaurant{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-3">Add Restaurant</h1>
+    <div class="card shadow p-3 mb-5 bg-body rounded">
+        <form method="POST" action="/restaurant">
+            <div class="row mb-2">
+                <div class="col">
+                    <div>
+                        <label for="fieldName" class="form-label">Name</label>
+                        <input id="fieldName" type="text" class="form-control" name="name" required>
+                    </div>
+                </div>
+                <div class="col" style="padding-top: 8px;">
+                    <button type="submit" class="btn btn-primary mt-4">Save</button>
+                </div>
+            </div>
+        </form>        
+    </div>
+
+    <div class="mt-3">
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <th>ID</th>
+                <th>Name</th>
+            </thead>
+            <tbody>
+                {% for restaurant in restaurants %}
+                <tr>
+                    <td>{{ restaurant.id }}</td>
+                    <td>{{ restaurant.name }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

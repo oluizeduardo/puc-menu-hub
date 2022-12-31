@@ -7,6 +7,12 @@
 {% block content %}
 <div class="container">
     <h1 class="mb-3">Search Plates</h1>
+    {% if message %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>            
+    {% endif %}
     <div class="card shadow p-3 mb-5 bg-body rounded">
         <form method="POST" action="/search">
             <div class="container">
@@ -60,5 +66,6 @@
 </div>
 {% block scripts %}
     <script src="{{url_for('static', filename='js/search.js')}}"></script>
+    <script src="{{url_for('static', filename='js/bootstrap.bundle.min.js')}}"></script>
 {% endblock %}
 {% endblock %}
