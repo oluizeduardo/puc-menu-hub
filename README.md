@@ -2,7 +2,11 @@
 
 This project is a CRUD system developed with Python and the Flask framework. It's a small system of register of users, restaurants and plates.
 
-### Installing
+# Screenshot
+
+![](docs/screen_add_plates.PNG)
+
+# Installing
 
 open the terminal and run the following commands:
 
