@@ -1,6 +1,11 @@
 # puc-menu-hub
 
-This project is a CRUD system developed with Python and the Flask framework. It's a small system of register of users, restaurants and plates.
+This project is a CRUD system developed with Python and the Flask framework. 
+* Register users and associate them with restaurants. 
+* Users can add plates only for their restaurants.
+* Users can edit and delete plates.
+* Users can search for plates in all other restaurants.
+* Users can login and logout.
 
 # Screenshot
 
