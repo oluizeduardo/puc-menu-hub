@@ -2,7 +2,7 @@ import constants
 import utils
 from flask import render_template, request, redirect
 from models import User, Restaurant
-from app import app
+from app import app, db
 
 
 ###################
@@ -19,7 +19,7 @@ def add_user():
         user.set_password(request.form['password'])
 
         try:          
-            utils.save_in_database(user)          
+            utils.save_in_database(db, user)          
             return redirect(constants.ID_ROUTE_LOGIN)
         except:
             print(constants.MESSAGE_ERROR_SAVING_USER)
