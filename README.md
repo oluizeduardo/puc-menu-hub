@@ -17,7 +17,7 @@ cd puc-menu-hub/
 python3 -m venv venv
 ```
 ```
-cd venv/Scripts/activate
+<root_folder> venv/Scripts/activate
 ```
 ```
 pip install --upgrade pip
@@ -36,4 +36,7 @@ flask db upgrade
 ```
 ```
 flask run
+```
+```
+http://127.0.0.1:5000/login
 ```
