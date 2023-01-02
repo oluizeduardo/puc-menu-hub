@@ -19,6 +19,8 @@ ID_ROUTE_RESTAURANT = '/restaurant'
 
 MESSAGE_ERROR_SAVING_USER = 'There was an error trying to save a new user.'
 MESSAGE_ERROR_SAVING_PLATE = 'There was an error trying to save the plate.'
+MESSAGE_ERROR_DELETING_PLATE = 'There was an error deleting a plate.'
+MESSAGE_ERROR_EDITING_PLATE = 'There was an error while editing a plate.'
 MESSAGE_ERROR_SAVING_RESTAURANT = 'There was an error trying to save a new restaurant.'
 MESSAGE_ERROR_INVALID_CREDENTIALS = 'Invalid credentials.'
 MESSAGE_ERROR_NOT_VALID_PARAMETER = 'Error! Not a valid parameter.'

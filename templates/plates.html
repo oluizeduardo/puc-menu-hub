@@ -65,7 +65,7 @@
                     <td>{{ plate.restaurant_id }}</td>
                     <td>
                         <!-- Button trigger modal -->
-                        <a href="#" data-bs-toggle="modal" data-bs-target="#modalEditPlate" onclick="loadModalFields()">
+                        <a href="#" data-plate-id="{{ plate.id }}" data-bs-toggle="modal" data-bs-target="#modalEditPlate" onclick="loadModalFieldsEditPanel(this)">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
                                 <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
                             </svg>
@@ -88,58 +88,65 @@
 
 <!-- Modal -->
 <div class="modal fade" id="modalEditPlate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Edit Plate</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="container">
+    <form action="/plates/edit" method="POST">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Plate</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
 
-                    <div class="mb-2">
-                        <label for="fieldName" class="form-label">Plate name</label>
-                        <input type="text" class="form-control" id="fieldName" name="name" required>
-                    </div>
+                        <!-- Plate ID. -->
+                        <span class="mb-2">
+                            <input type="hidden" class="form-control" id="field_editPlateID" name="plateId">
+                        </span>
 
-                    <div class="row">
-                        <div class="col">
-                            <div class="mb-2">
-                                <label for="fieldCategory" class="form-label">Category</label>
-                                <select id="fieldCategory" class="form-select" required name="category">
-                                    <option value="-" selected>Select...</option>
-                                    <option value="STARTER">STARTER</option>
-                                    <option value="MAIN COURSE">MAIN COURSE</option>
-                                    <option value="DESSERT">DESSERT</option>
-                                </select>
-                            </div>
+                        <div class="mb-2">
+                            <label for="field_editName" class="form-label">Plate name</label>
+                            <input type="text" class="form-control" id="field_editName" name="editedName" required>
                         </div>
-                        <div class="col">
-                            <div class="mb-2">
-                                <label for="fieldPrice" class="form-label">Price</label>
-                                <input type="text" class="form-control" id="fieldPrice" name="price" required>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="mb-2">
+                                    <label for="field_editCategory" class="form-label">Category</label>
+                                    <select id="field_editCategory" class="form-select" required name="editedCategory">
+                                        <option value="-" selected>Select...</option>
+                                        <option value="STARTER">STARTER</option>
+                                        <option value="MAIN COURSE">MAIN COURSE</option>
+                                        <option value="DESSERT">DESSERT</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="mb-2">
+                                    <label for="field_editPrice" class="form-label">Price</label>
+                                    <input type="text" class="form-control" id="field_editPrice" name="editedPrice" required>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                        </svg>
+                        Close
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-save" viewBox="0 0 16 16">
+                            <path d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z"/>
+                        </svg>
+                        Save changes
+                    </button>
+                </div>
             </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
-                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-                </svg>
-                Close
-            </button>
-            <button type="button" class="btn btn-primary">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-save" viewBox="0 0 16 16">
-                    <path d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z"/>
-                </svg>
-                Save changes
-            </button>
         </div>
-        </div>
-    </div>
-  </div>
+    </form>
+</div>
 
 {% block scripts %}
     <script src="{{url_for('static', filename='js/plates.js')}}"></script>

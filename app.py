@@ -21,4 +21,8 @@ bootstrap = Bootstrap5(app)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
-from views import *
+from view_account import *
+from view_plates import *
+from view_search import *
+from view_user import *
+from view_restaurant import *
